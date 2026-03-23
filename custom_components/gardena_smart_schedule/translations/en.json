@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Husqvarna",
+        "description": "Enter the credentials from your application on the Husqvarna Developer Portal.",
+        "data": {
+          "client_id": "Application Key (Client ID)",
+          "client_secret": "Application Secret"
+        }
+      },
+      "location": {
+        "title": "Select your garden",
+        "description": "Multiple gardens were found. Select the one to fetch schedules for.",
+        "data": {
+          "location_id": "Garden"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate",
+        "description": "Your credentials have expired. Please enter new credentials.",
+        "data": {
+          "client_id": "Application Key (Client ID)",
+          "client_secret": "Application Secret"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure",
+        "description": "Update your Husqvarna credentials.",
+        "data": {
+          "client_id": "Application Key (Client ID)",
+          "client_secret": "Application Secret"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid credentials",
+      "cannot_connect": "Could not connect to Husqvarna API",
+      "no_locations": "No gardens found on this account"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Settings",
+        "data": {
+          "scan_interval": "Update interval (minutes)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "schedule": {
+        "name": "Schedule"
+      }
+    }
+  }
+}

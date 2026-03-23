@@ -1,0 +1,12 @@
+{
+  "domain": "gardena_smart_schedule",
+  "name": "Gardena Smart Schedule",
+  "codeowners": ["@theli"],
+  "config_flow": true,
+  "documentation": "https://github.com/theli/gardena-smart-schedule",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": ["aiohttp>=3.8.0"],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}
