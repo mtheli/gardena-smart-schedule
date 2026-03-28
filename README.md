@@ -78,6 +78,10 @@ The integration creates sensor entities for each device (or each valve on multi-
 - [Gardena Smart System Card](https://github.com/mtheli/gardena-smart-system-card) — Custom Lovelace card for visualizing and controlling Gardena Smart System devices. Displays schedule data provided by this integration.
 - [Lawn Mower Card](https://github.com/mtheli/lawn-mower-card) — A dedicated detail card for lawn mowers.
 
+## Disclaimer
+
+This is an independent community project and is not affiliated with, endorsed by, or sponsored by Gardena or Husqvarna Group. All product names, trademarks, and registered trademarks are property of their respective owners.
+
 ## License
 
 MIT License — see [LICENSE](LICENSE)
