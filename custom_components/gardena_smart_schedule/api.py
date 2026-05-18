@@ -306,19 +306,45 @@ class GardenaScheduleClient:
                 timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
             ) as resp:
                 if resp.status != 200:
+                    _LOGGER.debug(
+                        "Schedule API returned status %s for location %s",
+                        resp.status, location_id,
+                    )
                     return {}
                 data = await resp.json(content_type=None)
-        except (aiohttp.ClientError, TimeoutError):
+        except (aiohttp.ClientError, TimeoutError) as err:
+            _LOGGER.debug("Schedule API request failed: %s", err)
             return {}
 
+        api_devices = data.get("devices", [])
+        api_ids = {d.get("id", "") for d in api_devices}
+        missing_ids = set(device_info) - api_ids
+        if missing_ids:
+            _LOGGER.debug(
+                "Devices in Gardena API but not in schedule API: %s",
+                [
+                    f"{did} ({device_info[did].get('name', '?')}, "
+                    f"model={device_info[did].get('model', '?')})"
+                    for did in missing_ids
+                ],
+            )
+
         result: dict[str, DeviceScheduleData] = {}
-        for device_data in data.get("devices", []):
+        for device_data in api_devices:
             device_id = device_data.get("id", "")
             raw_schedules = device_data.get("scheduled_events", [])
+            info = device_info.get(device_id, {})
             if not raw_schedules:
+                _LOGGER.debug(
+                    "Device %s (%s, model=%s) has no scheduled_events; "
+                    "top-level keys=%s",
+                    device_id,
+                    info.get("name", "?"),
+                    info.get("model", "?"),
+                    sorted(device_data.keys()),
+                )
                 continue
 
-            info = device_info.get(device_id, {})
             settings = device_data.get("settings", [])
             pause_map = _parse_pause_settings(settings)
             device_valve_names = _parse_valve_names(settings)
