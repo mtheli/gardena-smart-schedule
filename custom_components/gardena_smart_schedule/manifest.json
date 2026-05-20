@@ -6,7 +6,7 @@
   "documentation": "https://github.com/theli/gardena-smart-schedule",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "requirements": ["aiohttp>=3.8.0"],
+  "requirements": [],
   "single_config_entry": true,
   "version": "0.1.1"
 }
