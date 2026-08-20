@@ -14,19 +14,32 @@ every reader can open beats a partial set of translated ones. German belongs
 in the German-language forum threads, where a release gets announced in the
 reader's own language; the notes themselves stay English.
 
-**Structure:** `##` sections by theme, each holding bullets that open with a
-bold phrase and then explain themselves in one or two sentences.
+**One section per feature.** The bullets underneath carry the details. If it is
+not obvious who a feature applies to, say so in one line under the heading.
+
+**One sentence per bullet,** opening with two to five bold words that run into
+the sentence. No labels, no whole sentence in bold. Write what the user sees,
+with the previous behaviour as a short trailing clause where one is needed.
+
+**Plain language.** No literary voice, no marketing tone, no idiom where a verb
+will do. This holds for commit messages too. Reasoning belongs in the commit
+message, not in the notes.
+
+**No hard line breaks.** GitHub renders a single newline as a line break and
+tears prose apart mid-sentence. One paragraph, one line.
 
 ```markdown
-## Setup no longer blocks Home Assistant
+## Last session
 
-Optional lead-in paragraph — only when the bullets need context to make
-sense, e.g. an external cause the reader could not know about.
+Two new sensors, Last Session and Last Session Duration. On brushes with the storage service and on the Sonicare for Kids, not on the 7100 (HX742X).
 
-- **The integration finishes setting up right away** — the schedule sensors
-  appear about half a minute later, once the first poll returns.
-- **A failing poll is no longer visible as "Retrying setup"** — it is
-  written to the log and retried on the next scan interval.
+- **The state is the start time** of the session, the attributes hold duration, routine, mode and intensity.
+- **Sessions brushed without a connection** are read on the next one.
+- **Sessions the brush cannot date** are skipped.
+
+---
+
+📟 **No ESP bridge firmware change** — `MIN_BRIDGE_VERSION` stays 1.4.0.
 ```
 
 **Title:** `vX.Y.Z — what it is about`, e.g.
