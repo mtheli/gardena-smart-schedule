@@ -7,7 +7,12 @@ from typing import Any
 import aiohttp
 import voluptuous as vol
 
-from homeassistant.config_entries import ConfigFlow, ConfigFlowResult, OptionsFlow
+from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+
+try:  # HA ≥ 2025.8
+    from homeassistant.config_entries import OptionsFlowWithReload
+except ImportError:  # older cores: the fallback loses only the reload on save
+    from homeassistant.config_entries import OptionsFlow as OptionsFlowWithReload
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import AuthError, ApiError, GardenaScheduleClient
@@ -215,7 +220,7 @@ class GardenaScheduleConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
 
-class GardenaScheduleOptionsFlow(OptionsFlow):
+class GardenaScheduleOptionsFlow(OptionsFlowWithReload):
     """Handle options for Gardena Smart Schedule."""
 
     async def async_step_init(

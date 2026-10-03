@@ -43,7 +43,6 @@ async def async_setup_entry(
     )
     entry.runtime_data = coordinator
 
-    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     # The first poll is delayed so it does not race the main Gardena Smart
@@ -67,13 +66,6 @@ async def async_setup_entry(
         async_call_later(hass, STARTUP_DELAY_SECONDS, _async_first_refresh)
     )
     return True
-
-
-async def _async_options_updated(
-    hass: HomeAssistant, entry: GardenaScheduleConfigEntry
-) -> None:
-    """Handle options update — reload the integration."""
-    await hass.config_entries.async_reload(entry.entry_id)
 
 
 async def async_unload_entry(
